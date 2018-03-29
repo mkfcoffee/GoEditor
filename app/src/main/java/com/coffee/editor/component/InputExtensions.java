@@ -59,7 +59,7 @@ import java.util.Map;
 public class InputExtensions {
     public static final int HEADING = 0;
     public static final int CONTENT = 1;
-    private int H1TEXTSIZE = 23;
+    private int H1TEXTSIZE = 22;
     private int H2TEXTSIZE = 20;
     private int H3TEXTSIZE = 18;
     private int NORMALTEXTSIZE = 16;

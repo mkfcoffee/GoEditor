@@ -110,25 +110,10 @@ public class HTMLExtensions {
             case INPUT:
                 template = "<{{$tag}} data-tag=\"input\" {{$style}}>{{$content}}</{{$tag}}>";
                 break;
-            case hr:
-                template = "<hr data-tag=\"hr\"/>";
-                break;
             case img:
-                template = "<div data-tag=\"img\"><img src=\"{{$content}}\" /><span class=\"editor-image-subtitle\">{{$desc}}</span></div>";
+                template = "<div data-tag=\"img\"><img src=\"{{$content}}\" /></div>";
                 break;
-            case map:
-                template = "<div data-tag=\"map\"><img src=\"{{$content}}\" /><span text-align:'center'>{{$desc}}</span></div>";
-                break;
-            case ol:
-                template = "<ol data-tag=\"ol\">{{$content}}</ol>";
-                break;
-            case ul:
-                template = "<ul data-tag=\"ul\">{{$content}}</ul>";
-                break;
-            case OL_LI:
-            case UL_LI:
-                template = "<li>{{$content}}</li>";
-                break;
+
         }
         return template;
     }
@@ -136,8 +121,6 @@ public class HTMLExtensions {
     private String getInputHtml(Node item) {
         boolean isParagraph = true;
         String tmpl = getTemplateHtml(EditorType.INPUT);
-        //  CharSequence content= android.text.Html.fromHtml(item.content.get(0)).toString();
-        //  CharSequence trimmed= editorCore.getInputExtensions().noTrailingwhiteLines(content);
         String trimmed = Jsoup.parse(item.content.get(0)).body().select("p").html();
         if (item.contentStyles.size() > 0) {
             for (EditorTextStyle style : item.contentStyles) {
@@ -150,24 +133,6 @@ public class HTMLExtensions {
                         break;
                     case ITALIC:
                         tmpl = tmpl.replace("{{$content}}", "<i>{{$content}}</i>");
-                        break;
-                    case INDENT:
-                        tmpl = tmpl.replace("{{$style}}", "style=\"margin-left:25px\"");
-                        break;
-                    case OUTDENT:
-                        tmpl = tmpl.replace("{{$style}}", "style=\"margin-left:0px\"");
-                        break;
-                    case H1:
-                        tmpl = tmpl.replace("{{$tag}}", "h1");
-                        isParagraph = false;
-                        break;
-                    case H2:
-                        tmpl = tmpl.replace("{{$tag}}", "h2");
-                        isParagraph = false;
-                        break;
-                    case H3:
-                        tmpl = tmpl.replace("{{$tag}}", "h3");
-                        isParagraph = false;
                         break;
                     case NORMAL:
                         tmpl = tmpl.replace("{{$tag}}", "p");
@@ -205,15 +170,10 @@ public class HTMLExtensions {
                     htmlBlock.append(html);
                     break;
                 case img:
-                    htmlBlock.append(getTemplateHtml(item.type).replace("{{$content}}", item.content.get(0)).replace("{{$desc}}", item.content.get(1)));
+                    htmlBlock.append(getTemplateHtml(item.type).replace("{{$content}}", item.content.get(0)));
                     break;
                 case hr:
                     htmlBlock.append(getTemplateHtml(item.type));
-                    break;
-                case ul:
-                case ol:
-                    htmlBlock.append(getListAsHtml(item));
-                    break;
             }
         }
         return htmlBlock.toString();

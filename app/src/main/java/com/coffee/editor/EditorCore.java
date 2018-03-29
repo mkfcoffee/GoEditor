@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Point;
-import android.text.Editable;
 import android.text.Html;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -16,7 +15,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,38 +47,38 @@ public class EditorCore extends LinearLayout {
     * Divider initializors
     */
     private final String SHAREDPREFERENCE = "QA";
-    private Context __context;
-    private Activity __activity;
-    protected LinearLayout __parentView;
-    private RenderType __renderType;
-    private Resources __resources;
-    private View __activeView;
-    private Gson __gson;
-    private Utilities __utilities;
-    private EditorListener __listener;
+    private Context mContext;
+    private Activity mActivity;
+    protected LinearLayout mParentView;
+    private RenderType renderType;
+    private Resources resources;
+    private View activeView;
+    private Gson gson;
+    private Utilities utilities;
+    private EditorListener listener;
     public final int MAP_MARKER_REQUEST = 20;
     public final int PICK_IMAGE_REQUEST = 1;
-    private InputExtensions __inputExtensions;
-    private ImageExtensions __imageExtensions;
-    private HTMLExtensions __htmlExtensions;
+    private InputExtensions inputExtensions;
+    private ImageExtensions imageExtensions;
+    private HTMLExtensions htmlextensions;
 
     public EditorCore(Context _context, AttributeSet attrs) {
         super(_context, attrs);
-        this.__context = _context;
-        this.__activity = (Activity) _context;
+        this.mContext = _context;
+        this.mActivity = (Activity) _context;
         this.setOrientation(VERTICAL);
         initialize(_context, attrs);
     }
 
     private void initialize(Context context, AttributeSet attrs) {
         loadStateFromAttrs(attrs);
-        __utilities = new Utilities();
-        this.__resources = context.getResources();
-        __gson = new Gson();
-        __inputExtensions = new InputExtensions(this);
-        __imageExtensions = new ImageExtensions(this);
-        __htmlExtensions = new HTMLExtensions(this);
-        this.__parentView = this;
+        utilities = new Utilities();
+        this.resources = context.getResources();
+        gson = new Gson();
+        inputExtensions = new InputExtensions(this);
+        imageExtensions = new ImageExtensions(this);
+        htmlextensions = new HTMLExtensions(this);
+        this.mParentView = this;
     }
 
     //region Getters_and_Setters
@@ -97,7 +95,7 @@ public class EditorCore extends LinearLayout {
      * @return
      */
     public Activity getActivity() {
-        return this.__activity;
+        return this.mActivity;
     }
 
     /**
@@ -106,7 +104,7 @@ public class EditorCore extends LinearLayout {
      * @return
      */
     public LinearLayout getParentView() {
-        return this.__parentView;
+        return this.mParentView;
     }
 
     /**
@@ -115,7 +113,7 @@ public class EditorCore extends LinearLayout {
      * @return
      */
     public int getParentChildCount() {
-        return this.__parentView.getChildCount();
+        return this.mParentView.getChildCount();
     }
 
     /**
@@ -124,7 +122,7 @@ public class EditorCore extends LinearLayout {
      * @return
      */
     public RenderType getRenderType() {
-        return this.__renderType;
+        return this.renderType;
     }
 
     /**
@@ -133,7 +131,7 @@ public class EditorCore extends LinearLayout {
      * @return
      */
     public Resources getResources() {
-        return this.__resources;
+        return this.resources;
     }
 
     /**
@@ -142,23 +140,23 @@ public class EditorCore extends LinearLayout {
      * @return
      */
     public View getActiveView() {
-        return this.__activeView;
+        return this.activeView;
     }
 
     public void setActiveView(View view) {
-        this.__activeView = view;
+        this.activeView = view;
     }
 
     public Utilities getUtilitiles() {
-        return this.__utilities;
+        return this.utilities;
     }
 
     public EditorListener getEditorListener() {
-        return this.__listener;
+        return this.listener;
     }
 
     public void setEditorListener(EditorListener _listener) {
-        this.__listener = _listener;
+        this.listener = _listener;
     }
 
     /*
@@ -167,15 +165,15 @@ public class EditorCore extends LinearLayout {
      *
      */
     public InputExtensions getInputExtensions() {
-        return this.__inputExtensions;
+        return this.inputExtensions;
     }
 
     public ImageExtensions getImageExtensions() {
-        return this.__imageExtensions;
+        return this.imageExtensions;
     }
 
     public HTMLExtensions getHtmlExtensions() {
-        return this.__htmlExtensions;
+        return this.htmlextensions;
     }
 
     private void loadStateFromAttrs(AttributeSet attributeSet) {
@@ -189,9 +187,9 @@ public class EditorCore extends LinearLayout {
             this.placeHolder = a.getString(R.styleable.editor_placeholder);
             String renderType = a.getString(R.styleable.editor_render_type);
             if (TextUtils.isEmpty(renderType)) {
-                this.__renderType = RenderType.Editor;
+                this.renderType = RenderType.Editor;
             } else {
-                this.__renderType = renderType.toLowerCase().equals("renderer") ? RenderType.Renderer : RenderType.Editor;
+                this.renderType = renderType.toLowerCase().equals("renderer") ? RenderType.Renderer : RenderType.Editor;
             }
 
         } finally {
@@ -208,27 +206,21 @@ public class EditorCore extends LinearLayout {
      * @return
      */
     public int determineIndex(EditorType type) {
-        int size = this.__parentView.getChildCount();
-        if (this.__renderType == RenderType.Renderer)
+        int size = this.mParentView.getChildCount();
+        if (this.renderType == RenderType.Renderer)
             return size;
-        View _view = this.__activeView;
+        View _view = this.activeView;
         if (_view == null)
             return size;
-        int currentIndex = this.__parentView.indexOfChild(_view);
+        int currentIndex = this.mParentView.indexOfChild(_view);
         EditorType tag = getControlType(_view);
         if (tag == EditorType.INPUT) {
-            int length = ((EditText) this.__activeView).getText().length();
+            int length = ((EditText) this.activeView).getText().length();
             if (length > 0) {
                 return type == EditorType.UL_LI || type == EditorType.OL_LI ? currentIndex : currentIndex;
             } else {
                 return currentIndex;
             }
-        } else if (tag == EditorType.UL_LI || tag == EditorType.OL_LI) {
-            EditText _text = (EditText) _view.findViewById(R.id.txtText);
-            if (_text.getText().length() > 0) {
-
-            }
-            return size;
         } else {
             return size;
         }
@@ -290,12 +282,12 @@ public class EditorCore extends LinearLayout {
     }
 
     public void deleteFocusedPrevious(EditText view) {
-        int index = __parentView.indexOfChild(view);
+        int index = mParentView.indexOfChild(view);
         if (index == 0)
             return;
         EditorControl contentType = (EditorControl) ((View) view.getParent()).getTag();
 
-        View toFocus = __parentView.getChildAt(index - 1);
+        View toFocus = mParentView.getChildAt(index - 1);
         EditorControl control = (EditorControl) toFocus.getTag();
 
         /**
@@ -316,7 +308,7 @@ public class EditorCore extends LinearLayout {
          * previous node on the editor is a list, set focus to its inside
          *
          */
-            this.__parentView.removeView(view);
+            this.mParentView.removeView(view);
         } else {
             removeParent(view);
         }
@@ -324,15 +316,15 @@ public class EditorCore extends LinearLayout {
 
 
     public int removeParent(View view) {
-        int indexOfDeleteItem = __parentView.indexOfChild(view);
+        int indexOfDeleteItem = mParentView.indexOfChild(view);
         View nextItem = null;
         //remove hr if its on top of the delete field
-        this.__parentView.removeView(view);
+        this.mParentView.removeView(view);
         Log.d("indexOfDeleteItem", "indexOfDeleteItem : " + indexOfDeleteItem);
 
         for (int i = 0; i < indexOfDeleteItem; i++) {
-            if (getControlType(__parentView.getChildAt(i)) == EditorType.INPUT) {
-                nextItem = __parentView.getChildAt(i);
+            if (getControlType(mParentView.getChildAt(i)) == EditorType.INPUT) {
+                nextItem = mParentView.getChildAt(i);
                 continue;
             }
         }
@@ -341,7 +333,7 @@ public class EditorCore extends LinearLayout {
             if (text.requestFocus()) {
                 text.setSelection(text.getText().length());
             }
-            this.__activeView = nextItem;
+            this.activeView = nextItem;
         }
         return indexOfDeleteItem;
     }
@@ -351,18 +343,18 @@ public class EditorCore extends LinearLayout {
         if (content == null) {
             content = getValue("editorState", "");
         }
-        EditorContent deserialized = __gson.fromJson(content, EditorContent.class);
+        EditorContent deserialized = gson.fromJson(content, EditorContent.class);
         return deserialized;
     }
 
     public String getValue(String Key, String defaultVal) {
-        SharedPreferences _Preferences = __context.getSharedPreferences(SHAREDPREFERENCE, 0);
+        SharedPreferences _Preferences = mContext.getSharedPreferences(SHAREDPREFERENCE, 0);
         return _Preferences.getString(Key, defaultVal);
 
     }
 
     public void putValue(String Key, String Value) {
-        SharedPreferences _Preferences = __context.getSharedPreferences(SHAREDPREFERENCE, 0);
+        SharedPreferences _Preferences = mContext.getSharedPreferences(SHAREDPREFERENCE, 0);
         SharedPreferences.Editor editor = _Preferences.edit();
         editor.putString(Key, Value);
         editor.apply();
@@ -378,28 +370,28 @@ public class EditorCore extends LinearLayout {
     }
 
     public EditorContent getContentDeserialized(String EditorContentSerialized) {
-        EditorContent Deserialized = __gson.fromJson(EditorContentSerialized, EditorContent.class);
+        EditorContent Deserialized = gson.fromJson(EditorContentSerialized, EditorContent.class);
         return Deserialized;
     }
 
     public String serializeContent(EditorContent _state) {
-        String serialized = __gson.toJson(_state);
+        String serialized = gson.toJson(_state);
         return serialized;
     }
 
     public EditorContent getContent() {
 
-        if (this.__renderType == RenderType.Renderer) {
-            __utilities.toastItOut("This option only available in editor mode");
+        if (this.renderType == RenderType.Renderer) {
+            utilities.toastItOut("This option only available in editor mode");
             return null;
         }
 
-        int childCount = this.__parentView.getChildCount();
+        int childCount = this.mParentView.getChildCount();
         EditorContent editorState = new EditorContent();
         List<Node> list = new ArrayList<>();
         for (int i = 0; i < childCount; i++) {
             Node node = new Node();
-            View view = __parentView.getChildAt(i);
+            View view = mParentView.getChildAt(i);
             EditorType type = getControlType(view);
             node.type = type;
             node.content = new ArrayList<>();
@@ -415,8 +407,6 @@ public class EditorCore extends LinearLayout {
                     EditorControl imgTag = (EditorControl) view.getTag();
                     if (!TextUtils.isEmpty(imgTag.path)) {
                         node.content.add(imgTag.path);
-                        Editable desc = ((EditText) view.findViewById(R.id.desc)).getText();
-                        node.content.add(desc.length() > 0 ? desc.toString() : "");
                         list.add(node);
                     }
                     //field type, content[]
@@ -424,23 +414,6 @@ public class EditorCore extends LinearLayout {
                 case hr:
                     list.add(node);
                     break;
-                case ul:
-                case ol:
-                    TableLayout table = (TableLayout) view;
-                    int _rowCount = table.getChildCount();
-                    for (int j = 0; j < _rowCount; j++) {
-                        View row = table.getChildAt(j);
-                        EditText li = (EditText) row.findViewById(R.id.txtText);
-                        node.content.add(Html.toHtml(li.getText()));
-                    }
-                    list.add(node);
-                    break;
-                case map:
-                    EditorControl mapTag = (EditorControl) view.getTag();
-                    Editable desc = ((CustomEditText) view.findViewById(R.id.desc)).getText();
-                    node.content.add(mapTag.Cords);
-                    node.content.add(desc.length() > 0 ? desc.toString() : "");
-                    list.add(node);
             }
         }
         editorState.nodes = list;
@@ -448,22 +421,22 @@ public class EditorCore extends LinearLayout {
     }
 
     public void renderEditor(EditorContent _state) {
-        this.__parentView.removeAllViews();
+        this.mParentView.removeAllViews();
         for (Node item : _state.nodes) {
             switch (item.type) {
                 case INPUT:
                     String text = item.content.get(0);
-                    TextView view = __inputExtensions.insertEditText(0, this.placeHolder, text);
+                    TextView view = inputExtensions.insertEditText(0, this.placeHolder, text);
                     if (item.contentStyles != null) {
                         for (EditorTextStyle style : item.contentStyles) {
-                            __inputExtensions.UpdateTextStyle(style, view);
+                            inputExtensions.UpdateTextStyle(style, view);
                         }
                     }
                     break;
                 case img:
                     String path = item.content.get(0);
-                    String desc = item.content.get(1);
-                    __imageExtensions.loadImage(path, desc);
+                    String desc = "";
+                    imageExtensions.loadImage(path, desc);
                     break;
             }
         }
@@ -471,18 +444,18 @@ public class EditorCore extends LinearLayout {
 
 
     public boolean isLastRow(View view) {
-        int index = this.__parentView.indexOfChild(view);
-        int length = this.__parentView.getChildCount();
+        int index = this.mParentView.indexOfChild(view);
+        int length = this.mParentView.getChildCount();
         return length - 1 == index;
     }
 
 
     public void renderEditorFromHtml(String content) {
-        __htmlExtensions.parseHtml(content);
+        htmlextensions.parseHtml(content);
     }
 
     public void clearAllContents() {
-        this.__parentView.removeAllViews();
+        this.mParentView.removeAllViews();
 
     }
 
@@ -501,7 +474,7 @@ public class EditorCore extends LinearLayout {
         if (keyCode != KeyEvent.KEYCODE_DEL) {
             return false;
         }
-        if (__inputExtensions.isEditTextEmpty(editText)) {
+        if (inputExtensions.isEditTextEmpty(editText)) {
             deleteFocusedPrevious(editText);
             int controlCount = getParentChildCount();
             if (controlCount == 1)
@@ -511,13 +484,13 @@ public class EditorCore extends LinearLayout {
         int length = editText.getText().length();
         int selectionStart = editText.getSelectionStart();
 
-        EditorType editorType = getControlType(this.__activeView);
+        EditorType editorType = getControlType(this.activeView);
         CustomEditText nextFocus;
         if (selectionStart == 0 && length > 0) {
             int index = getParentView().indexOfChild(editText);
             if (index == 0)
                 return false;
-            nextFocus = __inputExtensions.getEditTextPrevious(index);
+            nextFocus = inputExtensions.getEditTextPrevious(index);
             deleteFocusedPrevious(editText);
             nextFocus.setText(nextFocus.getText().toString() + editText.getText().toString());
         }
@@ -531,7 +504,7 @@ public class EditorCore extends LinearLayout {
         switch (control.Type) {
             case ul:
             case ol:
-                __parentView.removeAllViews();
+                mParentView.removeAllViews();
                 break;
         }
 
@@ -540,7 +513,7 @@ public class EditorCore extends LinearLayout {
 
     public class Utilities {
         public int[] getScreenDimension() {
-            Display display = ((Activity) __context).getWindowManager().getDefaultDisplay();
+            Display display = ((Activity) mContext).getWindowManager().getDefaultDisplay();
             Point size = new Point();
             display.getSize(size);
             int width = size.x;
@@ -550,7 +523,7 @@ public class EditorCore extends LinearLayout {
         }
 
         public void toastItOut(String message) {
-            Toast.makeText(__context, message, Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
         }
     }
 }

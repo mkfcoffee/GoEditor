@@ -14,4 +14,5 @@
     <string name="editor_content_placeholder">请输入内容</string>
     <string name="editor_title_placeholder">文章标题（2&#8211;30个字）</string>
     <string name="release_article">发布</string>
+    <string name="uploading">上传中&#8230;</string>
 </resources>

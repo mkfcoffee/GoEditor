@@ -78,7 +78,6 @@ public class ImageExtensions {
         final View childLayout = ((Activity) editorCore.getContext()).getLayoutInflater().inflate(this.editorImageLayout, null);
         ImageView imageView = (ImageView) childLayout.findViewById(R.id.imageView);
         final TextView lblStatus = (TextView) childLayout.findViewById(R.id.lblStatus);
-        CustomEditText desc = (CustomEditText) childLayout.findViewById(R.id.desc);
         imageView.setImageBitmap(image);
         final String uuid = generateUUID();
         if (index == -1) {
@@ -94,16 +93,11 @@ public class ImageExtensions {
         EditorControl control = editorCore.createTag(EditorType.img);
         control.path = uuid; // set the imageId,so we can recognize later after upload
         childLayout.setTag(control);
-        if (!TextUtils.isEmpty(subTitle))
-            desc.setText(subTitle);
         if (editorCore.getRenderType() == RenderType.Editor) {
             lblStatus.setVisibility(View.VISIBLE);
             BindEvents(childLayout);
             childLayout.findViewById(R.id.progress).setVisibility(View.VISIBLE);
             editorCore.getEditorListener().onUpload(image, uuid);
-        } else {
-            desc.setEnabled(false);
-            lblStatus.setVisibility(View.GONE);
         }
     }
 
@@ -147,13 +141,6 @@ public class ImageExtensions {
     public void loadImage(String _path, String desc) {
         final View childLayout = ((Activity) editorCore.getContext()).getLayoutInflater().inflate(this.editorImageLayout, null);
         ImageView imageView = (ImageView) childLayout.findViewById(R.id.imageView);
-        CustomEditText text = (CustomEditText) childLayout.findViewById(R.id.desc);
-        if (TextUtils.isEmpty(desc)) {
-            text.setVisibility(View.GONE);
-        } else {
-            text.setText(desc);
-            text.setEnabled(false);
-        }
         Glide.with(this.editorCore.getContext()).load(_path).into(imageView);
         editorCore.getParentView().addView(childLayout);
     }

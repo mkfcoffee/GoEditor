@@ -39,75 +39,79 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true" />
 
+        <LinearLayout
+            android:id="@+id/editor_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/editor_communityRl"
+                android:layout_width="match_parent"
+                android:layout_height="44dp">
+
+                <TextView
+                    android:id="@+id/editor_community"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="16dp"
+                    android:hint="@string/choose_community"
+                    android:textColorHint="@color/text_placeholder"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/ic_navigate_next" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/bg_light_grey" />
+
+            <EditText
+                android:id="@+id/editor_title"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:hint="@string/editor_title_placeholder"
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp"
+                android:textColorHint="@color/text_placeholder"
+                android:textSize="16sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/bg_light_grey" />
+        </LinearLayout>
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@id/editor_action_rl"
+            android:layout_below="@id/editor_header"
             android:fillViewport="true">
 
-            <LinearLayout
+            <com.coffee.editor.Editor
+                android:id="@+id/editor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:focusable="false"
+                android:paddingBottom="12dp"
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp"
+                android:paddingTop="12dp"
+                app:placeholder="@string/editor_content_placeholder"
+                app:render_type="Editor" />
 
-                <RelativeLayout
-                    android:id="@+id/editor_communityRl"
-                    android:layout_width="match_parent"
-                    android:layout_height="44dp">
-
-                    <TextView
-                        android:id="@+id/editor_community"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="16dp"
-                        android:hint="@string/choose_community"
-                        android:textColorHint="@color/text_placeholder"
-                        android:textSize="18sp" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="16dp"
-                        android:src="@drawable/ic_navigate_next" />
-                </RelativeLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp"
-                    android:background="@color/bg_light_grey" />
-
-                <EditText
-                    android:id="@+id/editor_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="44dp"
-                    android:background="@null"
-                    android:gravity="center_vertical"
-                    android:hint="@string/editor_title_placeholder"
-                    android:paddingEnd="0dp"
-                    android:paddingStart="16dp"
-                    android:textColorHint="@color/text_placeholder"
-                    android:textSize="16sp" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/bg_light_grey" />
-
-                <com.coffee.editor.Editor
-                    android:id="@+id/editor"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:focusable="false"
-                    android:paddingBottom="12dp"
-                    android:paddingEnd="16dp"
-                    android:paddingStart="16dp"
-                    android:paddingTop="12dp"
-                    app:placeholder="@string/editor_content_placeholder"
-                    app:render_type="Editor" />
-            </LinearLayout>
         </ScrollView>
     </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>
