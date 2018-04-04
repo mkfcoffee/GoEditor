@@ -104,7 +104,7 @@ public class ImageExtensions {
     private void showNextInputHint(int index) {
         View view = editorCore.getParentView().getChildAt(index);
         EditorType type = editorCore.getControlType(view);
-        if (type != EditorType.INPUT)
+        if (type != EditorType.input)
             return;
         TextView tv = (TextView) view;
         tv.setHint(editorCore.placeHolder);
@@ -113,14 +113,14 @@ public class ImageExtensions {
     private void hideInputHint(int index) {
         View view = editorCore.getParentView().getChildAt(index);
         EditorType type = editorCore.getControlType(view);
-        if (type != EditorType.INPUT)
+        if (type != EditorType.input)
             return;
 
         String hint = editorCore.placeHolder;
         if (index > 0) {
             View prevView = editorCore.getParentView().getChildAt(index - 1);
             EditorType prevType = editorCore.getControlType(prevView);
-            if (prevType == EditorType.INPUT)
+            if (prevType == EditorType.input)
                 hint = null;
         }
         TextView tv = (TextView) view;

@@ -43,11 +43,6 @@ public class HTMLExtensions {
             return;
         }
         switch (tag) {
-            case h1:
-            case h2:
-            case h3:
-                RenderHeader(tag, element);
-                break;
             case p:
                 text = element.html();
                 editorCore.getInputExtensions().insertEditText(count, null, text);
@@ -79,8 +74,7 @@ public class HTMLExtensions {
         int count = editorCore.getParentView().getChildCount();
         String text = getHtmlSpan(element);
         TextView editText = editorCore.getInputExtensions().insertEditText(count, null, text);
-        EditorTextStyle style = tag == HtmlTag.h1 ? EditorTextStyle.H1 : tag == HtmlTag.h2 ? EditorTextStyle.H2 : EditorTextStyle.H3;
-        editorCore.getInputExtensions().UpdateTextStyle(style, editText);
+        editorCore.getInputExtensions().UpdateTextStyle(null, editText);
     }
 
     private String getHtmlSpan(Element element) {
@@ -107,7 +101,7 @@ public class HTMLExtensions {
     private String getTemplateHtml(EditorType child) {
         String template = null;
         switch (child) {
-            case INPUT:
+            case input:
                 template = "<{{$tag}} data-tag=\"input\" {{$style}}>{{$content}}</{{$tag}}>";
                 break;
             case img:
@@ -120,7 +114,7 @@ public class HTMLExtensions {
 
     private String getInputHtml(Node item) {
         boolean isParagraph = true;
-        String tmpl = getTemplateHtml(EditorType.INPUT);
+        String tmpl = getTemplateHtml(EditorType.input);
         String trimmed = Jsoup.parse(item.content.get(0)).body().select("p").html();
         if (item.contentStyles.size() > 0) {
             for (EditorTextStyle style : item.contentStyles) {
@@ -165,7 +159,7 @@ public class HTMLExtensions {
         String html;
         for (Node item : content.nodes) {
             switch (item.type) {
-                case INPUT:
+                case input:
                     html = getInputHtml(item);
                     htmlBlock.append(html);
                     break;

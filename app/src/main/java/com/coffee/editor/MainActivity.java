@@ -114,8 +114,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //editor.dividerBackground=R.drawable.divider_background_dark;
-        //editor.setFontFace(R.string.fontFamily__serif);
         Map<Integer, String> headingTypeface = getHeadingTypeface();
         Map<Integer, String> contentTypeface = getContentTypeface();
         editor.setHeadingTypeface(headingTypeface);
@@ -125,7 +123,6 @@ public class MainActivity extends AppCompatActivity {
         editor.setEditorListener(new EditorListener() {
             @Override
             public void onTextChanged(EditText editText, Editable text) {
-                // Toast.makeText(EditorTestActivity.this, text, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -150,10 +147,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
             }
-        } else if (resultCode == Activity.RESULT_CANCELED) {
-            //Write your code if there's no result
-            Toast.makeText(getApplicationContext(), "Cancelled", Toast.LENGTH_SHORT).show();
-            // editor.RestoreState();
         }
     }
 

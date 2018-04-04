@@ -8,8 +8,7 @@ import java.util.List;
  * Email: mkfcoffee@163.com
  */
 public class EditorControl {
-    public EditorType Type;
+    public EditorType type;
     public String path;
-    public String Cords;
-    public List<EditorTextStyle> _ControlStyles;
+    public List<EditorTextStyle> styleList;
 }
