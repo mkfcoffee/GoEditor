@@ -59,10 +59,6 @@ public class Editor extends EditorCore {
         return super.getContentDeserialized(EditorContentSerialized);
     }
 
-    public String getContentAsHTML() {
-        return getHtmlExtensions().getContentAsHTML();
-    }
-
     public String getContentAsHTML(EditorContent content) {
         return getHtmlExtensions().getContentAsHTML(content);
     }
@@ -71,8 +67,8 @@ public class Editor extends EditorCore {
         return getHtmlExtensions().getContentAsHTML(editorContentAsSerialized);
     }
 
-    public void render(EditorContent _state) {
-        super.renderEditor(_state);
+    public void render(EditorContent content) {
+        super.renderEditor(content);
     }
 
     public void render(String HtmlString) {

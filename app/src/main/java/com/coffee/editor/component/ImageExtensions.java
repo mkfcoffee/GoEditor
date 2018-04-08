@@ -85,7 +85,6 @@ public class ImageExtensions {
         }
         showNextInputHint(index);
         editorCore.getParentView().addView(childLayout, index);
-
         //      _Views.add(childLayout);
         if (editorCore.isLastRow(childLayout)) {
             editorCore.getInputExtensions().insertEditText(index + 1, null, null);

@@ -50,6 +50,9 @@ public class HTMLExtensions {
             case img:
                 RenderImage(element);
                 break;
+            case div:
+                buildNode(element);
+                break;
         }
     }
 
@@ -102,10 +105,10 @@ public class HTMLExtensions {
         String template = null;
         switch (child) {
             case input:
-                template = "<{{$tag}} data-tag=\"input\" {{$style}}>{{$content}}</{{$tag}}>";
+                template = "<{{$tag}} {{$style}}>{{$content}}</{{$tag}}>";
                 break;
             case img:
-                template = "<div data-tag=\"img\"><img src=\"{{$content}}\" /></div>";
+                template = "<p><a href= \"{{$content}}\"><img src=\"{{$content}}\"></a></p>";
                 break;
 
         }
@@ -147,13 +150,6 @@ public class HTMLExtensions {
         return tmpl;
     }
 
-    public String getContentAsHTML() {
-        StringBuilder htmlBlock = new StringBuilder();
-        String html;
-        EditorContent content = editorCore.getContent();
-        return getContentAsHTML(content);
-    }
-
     public String getContentAsHTML(EditorContent content) {
         StringBuilder htmlBlock = new StringBuilder();
         String html;
@@ -176,20 +172,5 @@ public class HTMLExtensions {
     public String getContentAsHTML(String editorContentAsSerialized) {
         EditorContent content = editorCore.getContentDeserialized(editorContentAsSerialized);
         return getContentAsHTML(content);
-    }
-
-
-    private String getListAsHtml(Node item) {
-        int count = item.content.size();
-        String tmpl_parent = getTemplateHtml(item.type);
-        StringBuilder childBlock = new StringBuilder();
-        for (int i = 0; i < count; i++) {
-            String tmpl_li = getTemplateHtml(item.type == EditorType.ul ? EditorType.UL_LI : EditorType.OL_LI);
-            String trimmed = Jsoup.parse(item.content.get(i)).body().select("p").html();
-            tmpl_li = tmpl_li.replace("{{$content}}", trimmed);
-            childBlock.append(tmpl_li);
-        }
-        tmpl_parent = tmpl_parent.replace("{{$content}}", childBlock.toString());
-        return tmpl_parent;
     }
 }

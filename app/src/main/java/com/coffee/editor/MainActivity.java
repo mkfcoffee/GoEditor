@@ -141,7 +141,6 @@ public class MainActivity extends AppCompatActivity {
             Uri uri = data.getData();
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                // Log.d(TAG, String.valueOf(bitmap));
                 editor.insertImage(bitmap);
             } catch (IOException e) {
                 Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();

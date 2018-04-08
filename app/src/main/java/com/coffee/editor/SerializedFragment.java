@@ -16,20 +16,8 @@ import android.widget.TextView;
 public class SerializedFragment extends Fragment {
     private static final String SERIALIZED = "";
 
-    // TODO: Rename and change types of parameters
     private String mSerialized;
 
-    public SerializedFragment() {
-        // Required empty public constructor
-    }
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param serialized Parameter 1.
-     * @return A new instance of fragment PreviewFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static SerializedFragment newInstance(String serialized) {
         SerializedFragment fragment = new SerializedFragment();
         Bundle args = new Bundle();
@@ -49,9 +37,8 @@ public class SerializedFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_serialized, container, false);
-        ((TextView)view.findViewById(R.id.lblRendered)).setText(mSerialized);
+        View view = inflater.inflate(R.layout.fragment_serialized, container, false);
+        ((TextView) view.findViewById(R.id.lblRendered)).setText(mSerialized);
         return view;
     }
 
