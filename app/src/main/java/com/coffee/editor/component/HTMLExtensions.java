@@ -27,7 +27,8 @@ public class HTMLExtensions {
 
     public void parseHtml(String htmlString) {
         Document doc = Jsoup.parse(htmlString);
-        for (Element element : doc.body().children()) {
+        Element body = doc.body();
+        for (Element element : body.children()) {
             if (!matchesTag(element.tagName().toLowerCase()))
                 continue;
             buildNode(element);
@@ -48,7 +49,7 @@ public class HTMLExtensions {
                 editorCore.getInputExtensions().insertEditText(count, null, text);
                 break;
             case img:
-                RenderImage(element);
+                renderImage(element);
                 break;
             case div:
                 buildNode(element);
@@ -59,11 +60,11 @@ public class HTMLExtensions {
     private void renderDiv(Element element) {
         String tag = element.attr("data-tag");
         if (tag.equals("img")) {
-            RenderImage(element);
+            renderImage(element);
         }
     }
 
-    private void RenderImage(Element element) {
+    private void renderImage(Element element) {
         Element img = element.child(0);
         Element descTag = element.child(1);
         String src = img.attr("src");
@@ -72,8 +73,7 @@ public class HTMLExtensions {
         editorCore.getImageExtensions().executeDownloadImageTask(src, Index, desc);
     }
 
-
-    private void RenderHeader(HtmlTag tag, Element element) {
+    private void renderHeader(HtmlTag tag, Element element) {
         int count = editorCore.getParentView().getChildCount();
         String text = getHtmlSpan(element);
         TextView editText = editorCore.getInputExtensions().insertEditText(count, null, text);

@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="GoEditor">
-        <attr name="render_type" format="string"/>
-        <attr name="placeholder" format="string"/>
+        <attr name="render_type" format="string" />
+        <attr name="placeholder" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="NativeEditor">
+        <attr name="ne_textSize" format="dimension" />
+        <attr name="ne_textColor" format="color" />
+        <attr name="ne_hint" format="string" />
+        <attr name="ne_hintTextColor" format="color" />
+        <attr name="ne_paddingLeft" format="dimension" />
+        <attr name="ne_paddingRight" format="dimension" />
+        <attr name="ne_paddingTop" format="dimension" />
+        <attr name="ne_paddingBottom" format="dimension" />
     </declare-styleable>
 </resources>

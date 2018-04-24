@@ -19,6 +19,7 @@ android {
     sourceSets {
         main { res.srcDirs = ['src/main/res', 'src/main/res/drawable-xhdpi', 'src/main/res/menu'] }
     }
+
 }
 
 dependencies {
@@ -35,5 +36,6 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.2'
     implementation 'com.github.bumptech.glide:glide:4.6.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
-    compile 'org.jsoup:jsoup:1.10.3'
+    implementation 'org.jsoup:jsoup:1.10.3'
+    implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.0'
 }
