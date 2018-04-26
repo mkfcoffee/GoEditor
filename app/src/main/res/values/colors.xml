@@ -28,6 +28,10 @@
     <color name="blue_overlay" type="color">#803b5999</color>
     <color name="light_green_white" type="color">#FEFFFF</color>
     <color name="text_placeholder">#CBCFD6</color>
+    <color name="text_title_placeholder">#12A192</color>
+    <color name="text_grey">#686B74</color>
+    <color name="text_light_grey">#999EAD</color>
+    <color name="text_black">#242529</color>
     <color name="bg_light_grey">#F5F5F7</color>
 
     <color name="rich_paragraph_text_color">#333333</color>

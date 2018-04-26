@@ -122,7 +122,8 @@ public class NativeEditor extends ScrollView implements INativeEditor {
             }
         };
 
-        RichEditText firstEdit = createPEditText();
+        RichEditText firstEdit = createBodyEditText();
+        firstEdit.setHint(R.string.new_paragraph);
         rootLayout.addView(firstEdit);
         currentFocusEdit = firstEdit;
     }
@@ -361,7 +362,7 @@ public class NativeEditor extends ScrollView implements INativeEditor {
             ((RichEditText) currentFocusEdit).toggleEffect(RichEditText.BOLD);
         }
     }
-    
+
     public void toggleItalicSelectText() {
         if (currentFocusEdit instanceof RichEditText) {
             ((RichEditText) currentFocusEdit).toggleEffect(RichEditText.ITALIC);
@@ -410,7 +411,7 @@ public class NativeEditor extends ScrollView implements INativeEditor {
      * @param editStr EditText显示的文字
      */
     private RichEditText addPEditTextAtIndex(final int index, final CharSequence editStr) {
-        RichEditText newEditText = createPEditText();
+        RichEditText newEditText = createBodyEditText();
         newEditText.setText(editStr);
         rootLayout.addView(newEditText, index);
         return newEditText;
@@ -436,7 +437,7 @@ public class NativeEditor extends ScrollView implements INativeEditor {
      * @return
      */
     private EditText addHEditTextAtIndex(@HeadingLevel int headingLevel, final int index, final CharSequence editStr) {
-        HeadingEditText newEditText = createHEditText();
+        HeadingEditText newEditText = createTitleEditText();
         newEditText.setText(editStr);
         newEditText.setLevel(headingLevel);
         rootLayout.addView(newEditText, index);
@@ -448,7 +449,7 @@ public class NativeEditor extends ScrollView implements INativeEditor {
      *
      * @return
      */
-    private HeadingEditText createHEditText() {
+    private HeadingEditText createTitleEditText() {
         HeadingEditText editText = (HeadingEditText) inflater.inflate(R.layout.layout_heading, this, false);
         editText.setOnKeyListener(keyListener);
         editText.setOnFocusChangeListener(focusListener);
@@ -458,7 +459,7 @@ public class NativeEditor extends ScrollView implements INativeEditor {
     /**
      * 生成段落文本输入框
      */
-    private RichEditText createPEditText() {
+    private RichEditText createBodyEditText() {
         RichEditText editText = (RichEditText) inflater.inflate(R.layout.layout_paragraph, this, false);
         editText.setOnSelectionChangedListener(wrapSelectChangeListener);
         editText.setOnKeyListener(keyListener);

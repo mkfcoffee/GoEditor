@@ -1,26 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.coffee.editor.RichImageLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <com.coffee.editor.EditImageView
         android:id="@+id/edit_imageView"
-        android:layout_width="match_parent"
+        android:layout_width="160dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:scaleType="centerCrop" />
+        android:layout_centerHorizontal="true"
+        android:scaleType="fitCenter"
+        tools:src="@tools:sample/avatars" />
 
     <ImageView
         android:id="@+id/image_close"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignRight="@id/edit_imageView"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignEnd="@id/edit_imageView"
         android:layout_alignTop="@id/edit_imageView"
-        android:paddingBottom="20dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="5dp"
-        android:paddingTop="5dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/icon_close" />
-
+        android:layout_marginStart="-24dp"
+        android:src="@drawable/ic_close_white" />
 </com.coffee.editor.RichImageLayout>

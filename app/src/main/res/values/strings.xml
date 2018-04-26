@@ -12,7 +12,7 @@
     <string name="fontFamily__monospace">monospace</string>
     <string name="choose_community">选择发布的社区</string>
     <string name="editor_content_placeholder">请输入内容</string>
-    <string name="editor_title_placeholder">文章标题（2&#8211;30个字）</string>
+    <string name="editor_title_placeholder">请输入标题（2&#8211;30字）</string>
     <string name="release_article">发布</string>
     <string name="uploading">上传中&#8230;</string>
 
@@ -39,6 +39,8 @@
     <string name="cwac_richedittext_foreground">Foreground</string>
     <string name="cwac_richedittext_background">Background</string>
 
-    <string name="new_paragraph">新段落</string>
+    <string name="new_paragraph">请输入内容</string>
     <string name="new_heading">新标题</string>
+    <string name="link_url">URL连接</string>
+    <string name="link_text">显示文本</string>
 </resources>

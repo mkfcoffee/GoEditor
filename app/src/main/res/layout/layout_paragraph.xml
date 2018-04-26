@@ -4,9 +4,11 @@
     android:layout_height="wrap_content"
     android:background="@null"
     android:cursorVisible="true"
-    android:hint="@string/new_paragraph"
     android:lineSpacingMultiplier="1.3"
-    android:paddingBottom="20dp"
-    android:textColor="@color/rich_paragraph_text_color"
-    android:textColorHint="@color/rich_hint_text_color"
-    android:textSize="@dimen/font_body" />
+    android:paddingBottom="8dp"
+    android:paddingEnd="16dp"
+    android:paddingStart="16dp"
+    android:paddingTop="8dp"
+    android:textColor="@color/text_black"
+    android:textColorHint="@color/text_grey"
+    android:textSize="@dimen/body_textsize" />
